@@ -19,15 +19,17 @@ const theme = {
 };
 
 const AppProvider = ({children}) => {
-  return <PaperProvider theme={theme}>{children}</PaperProvider>;
+  return (
+    <NavigationContainer>
+      <PaperProvider theme={theme}>{children}</PaperProvider>
+    </NavigationContainer>
+  );
 };
 
 const App = () => {
   return (
     <AppProvider>
-      <NavigationContainer>
-        <MainNavigation />
-      </NavigationContainer>
+      <MainNavigation />
     </AppProvider>
   );
 };

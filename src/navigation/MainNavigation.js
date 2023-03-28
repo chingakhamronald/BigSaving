@@ -1,13 +1,29 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Dashboard from '../screen/Dashboard';
+import Login from '../screen/Login';
+import Splash from '../screen/Splash';
 
 const Stack = createNativeStackNavigator();
+
 const MainNavigation = () => {
+  const [splashLoading, setSplashLoading] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSplashLoading(false);
+    }, 5000);
+    return () => {
+      clearTimeout(t);
+    };
+  }, [setSplashLoading]);
+
   return (
     <Stack.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="Splash"
       screenOptions={{headerShown: false}}>
+      {splashLoading && <Stack.Screen name="Splash" component={Splash} />}
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
     </Stack.Navigator>
   );
