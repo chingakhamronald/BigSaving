@@ -3,10 +3,9 @@ import {StyleSheet, View} from 'react-native';
 import {useTheme, Text} from 'react-native-paper';
 
 const Splash = () => {
-  const theme = useTheme();
   return (
     <View style={styles.container}>
-      <Text style={{color: theme.colors.primary}}>Splash</Text>
+      <Text>Splash</Text>
     </View>
   );
 };
