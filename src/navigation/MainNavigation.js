@@ -29,7 +29,7 @@ const MainNavigation = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DailyReport" component={DailyReport} />
-      <Stack.Screen name="Transaction" component={Transaction} />
+      <Stack.Screen name="Add_New" component={Transaction} />
       <Stack.Screen name="Borrower" component={Borrower} />
     </Stack.Navigator>
   );

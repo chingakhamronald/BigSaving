@@ -35,8 +35,8 @@ const Dashboard = ({navigation}) => {
             },
             {
               icon: 'email',
-              label: 'Transaction List',
-              onPress: () => navigation.navigate('Transaction'),
+              label: 'Add New',
+              onPress: () => navigation.navigate('Add_New'),
             },
             {
               icon: 'bell',
