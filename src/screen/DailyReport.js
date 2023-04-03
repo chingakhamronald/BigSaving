@@ -2,7 +2,6 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import React from 'react';
 import AppBar from '../components/AppBar';
 import {Searchbar, Surface, Text} from 'react-native-paper';
-import {Chip} from 'react-native-paper';
 import {Chips} from '../components/Chips';
 
 const DailyReport = ({navigation}) => {
