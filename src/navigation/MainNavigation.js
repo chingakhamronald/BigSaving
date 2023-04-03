@@ -5,7 +5,7 @@ import DailyReport from '../screen/DailyReport';
 import Dashboard from '../screen/Dashboard';
 import Login from '../screen/Login';
 import Splash from '../screen/Splash';
-import Transaction from '../screen/Transaction';
+import TransactionForm from '../screen/TransactionForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +29,7 @@ const MainNavigation = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DailyReport" component={DailyReport} />
-      <Stack.Screen name="Add_New" component={Transaction} />
+      <Stack.Screen name="TransactionForm" component={TransactionForm} />
       <Stack.Screen name="Borrower" component={Borrower} />
     </Stack.Navigator>
   );

@@ -1,8 +1,15 @@
 import {useField} from 'formik';
 import React from 'react';
 import {TextInput} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
 
-const TextField = ({name, ...props}) => {
+const styles = StyleSheet.create({
+  reason: {
+    height: 100,
+  },
+});
+
+const TextField = ({name, label, ...props}) => {
   const [{onBlur}, {value}, {setValue}] = useField(name);
 
   return (
@@ -12,6 +19,8 @@ const TextField = ({name, ...props}) => {
         value={value}
         onChangeText={setValue}
         onBlur={onBlur(name)}
+        label={label}
+        contentStyle={label === 'Reason' && styles.reason}
         {...props}
       />
     </>

@@ -9,14 +9,11 @@ const Chart = ({name}) => {
       <Text>{name}</Text>
       <VictoryChart>
         <VictoryAxis
-          // tickValues specifies both the number of ticks and where
-          // they are placed on the axis
           tickValues={[1, 2, 3, 4, 5, 6, 7]}
           tickFormat={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
         />
         <VictoryAxis
           dependentAxis
-          // tickFormat specifies how ticks should be displayed
           tickFormat={x => {
             return `Rs${x / 1000}`;
           }}

@@ -1,14 +1,17 @@
-/* eslint-disable no-shadow */
 import {StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import TextField from './TextField';
-import {Button, RadioButton} from 'react-native-paper';
+import {Button, RadioButton, Subheading} from 'react-native-paper';
 
 const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  height: {
+    height: 10,
   },
 });
 
@@ -35,12 +38,6 @@ export const BorrowForm = ({navigation}) => {
         {({handleSubmit}) => (
           <View>
             <TextField label="Amount" name="amount" />
-            <TextField label="Name" name="name" />
-            <TextField label="Address" name="address" />
-            <TextField label="Phone no." name="phone_no" />
-            <TextField label="Deadline Payment" name="deadline_payment" />
-            <TextField label="Reason" name="reason" />
-
             <RadioButton.Group
               onValueChange={value =>
                 setValue(r => ({
@@ -50,6 +47,7 @@ export const BorrowForm = ({navigation}) => {
               }
               value={value?.payment}>
               <View style={styles.flex}>
+                <Subheading>Payment Type </Subheading>
                 <RadioButton.Item label="UPI" value="upi" />
                 <RadioButton.Item label="Cash" value="cash" />
               </View>
@@ -64,15 +62,21 @@ export const BorrowForm = ({navigation}) => {
               }
               value={value?.paid}>
               <View style={styles.flex}>
+                <Subheading>Confirmation Type</Subheading>
                 <RadioButton.Item label="Paid" value="paid" />
                 <RadioButton.Item label="Unpaid" value="un_paid" />
               </View>
             </RadioButton.Group>
-
+            <TextField label="Name" name="name" />
+            <TextField label="Address" name="address" />
+            <TextField label="Phone no." name="phone_no" />
+            <TextField label="Deadline Payment" name="deadline_payment" />
+            <TextField label="Reason" name="reason" />
+            <View style={styles.height} />
             <Button
               mode="contained"
               onPress={() => navigation.navigate('DailyReport')}>
-              Submit
+              SUBMIT
             </Button>
           </View>
         )}
@@ -98,22 +102,24 @@ export const IncommingForm = ({navigation}) => {
         {({handleSubmit}) => (
           <View>
             <TextField label="Amount" name="amount" />
-            <TextField label="Name" name="name" />
-            <TextField label="Address" name="address" />
-            <TextField label="Phone no." name="phone_no" />
-            <TextField label="Reason" name="reason" />
             <RadioButton.Group
               onValueChange={value => setValue(value)}
               value={value}>
               <View style={styles.flex}>
+                <Subheading>Payment Type </Subheading>
                 <RadioButton.Item label="UPI" value="gpay" />
                 <RadioButton.Item label="Cash" value="cash" />
               </View>
             </RadioButton.Group>
+            <TextField label="Name" name="name" />
+            <TextField label="Address" name="address" />
+            <TextField label="Phone no." name="phone_no" />
+            <TextField label="Reason" name="reason" />
+            <View style={styles.height} />
             <Button
               mode="contained"
               onPress={() => navigation.navigate('DailyReport')}>
-              Submit
+              SUBMIT
             </Button>
           </View>
         )}
@@ -137,20 +143,22 @@ export const OutGoingForm = ({navigation}) => {
         {({handleSubmit}) => (
           <View>
             <TextField label="Amount" name="amount" />
-            <TextField label="Item" name="item" />
-            <TextField label="Reason" name="reason" />
             <RadioButton.Group
               onValueChange={value => setValue(value)}
               value={value}>
               <View style={styles.flex}>
+                <Subheading>Payment Type </Subheading>
                 <RadioButton.Item label="UPI" value="gpay" />
                 <RadioButton.Item label="Cash" value="cash" />
               </View>
             </RadioButton.Group>
+            <TextField label="Item" name="item" />
+            <TextField label="Reason" name="reason" />
+            <View style={styles.height} />
             <Button
               mode="contained"
               onPress={() => navigation.navigate('DailyReport')}>
-              Submit
+              SUBMIT
             </Button>
           </View>
         )}
