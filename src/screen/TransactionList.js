@@ -4,13 +4,13 @@ import AppBar from '../components/AppBar';
 import {Searchbar, Surface} from 'react-native-paper';
 import {Chips} from '../components/Chips';
 
-const Borrower = ({navigation}) => {
+const TransactionList = ({navigation}) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const onChangeSearch = query => setSearchQuery(query);
   return (
     <View>
-      <AppBar navigation={navigation} title="Borrower" />
+      <AppBar navigation={navigation} title="Transaction List" />
       <Searchbar
         placeholder="Search"
         onChangeText={onChangeSearch}
@@ -37,7 +37,7 @@ const Borrower = ({navigation}) => {
   );
 };
 
-export default Borrower;
+export default TransactionList;
 
 const styles = StyleSheet.create({
   flex: {

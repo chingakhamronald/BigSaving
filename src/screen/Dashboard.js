@@ -27,11 +27,10 @@ const Dashboard = ({navigation}) => {
           open={open}
           icon={open ? 'calendar-today' : 'plus'}
           actions={[
-            {icon: 'plus', onPress: () => console.log('Pressed add')},
             {
               icon: 'star',
-              label: 'Borrower List',
-              onPress: () => navigation.navigate('Borrower'),
+              label: 'Transaction List',
+              onPress: () => navigation.navigate('TransactionList'),
             },
             {
               icon: 'email',

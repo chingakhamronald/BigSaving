@@ -1,11 +1,11 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import Borrower from '../screen/Borrower';
 import DailyReport from '../screen/DailyReport';
 import Dashboard from '../screen/Dashboard';
 import Login from '../screen/Login';
 import Splash from '../screen/Splash';
 import TransactionForm from '../screen/TransactionForm';
+import TransactionList from '../screen/TransactionList';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +30,7 @@ const MainNavigation = () => {
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DailyReport" component={DailyReport} />
       <Stack.Screen name="TransactionForm" component={TransactionForm} />
-      <Stack.Screen name="Borrower" component={Borrower} />
+      <Stack.Screen name="TransactionList" component={TransactionList} />
     </Stack.Navigator>
   );
 };
