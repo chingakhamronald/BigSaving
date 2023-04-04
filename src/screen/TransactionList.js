@@ -1,39 +1,47 @@
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import AppBar from '../components/AppBar';
-import {Searchbar, Surface} from 'react-native-paper';
+import {Surface} from 'react-native-paper';
 import {Chips} from '../components/Chips';
+import {Calendar} from 'react-native-calendars';
 
 const TransactionList = ({navigation}) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const onChangeSearch = query => setSearchQuery(query);
+  const [selected, setSelected] = useState('');
   return (
-    <View>
+    <>
       <AppBar navigation={navigation} title="Transaction List" />
-      <Searchbar
-        placeholder="Search"
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-      />
-      <View style={styles.flex}>
-        <Chips icon="information" name="All" />
-        <Chips icon="information" name="Paid" />
-        <Chips icon="information" name="Unpaid" />
-      </View>
-
-      <FlatList
-        data={DATA}
-        renderItem={({item}) => {
-          return (
-            <Surface>
-              <Text>{item.title}</Text>
-            </Surface>
-          );
+      <Calendar
+        onDayPress={day => {
+          setSelected(day.dateString);
         }}
-        keyExtractor={item => item.id}
+        markedDates={{
+          [selected]: {
+            selected: true,
+            disableTouchEvent: true,
+            selectedDotColor: 'orange',
+          },
+        }}
       />
-    </View>
+      <View style={styles.margin}>
+        <View style={styles.flex}>
+          <Chips icon="information" name="Incoming" />
+          <Chips icon="information" name="Outgoing" />
+          <Chips icon="information" name="Borrower" />
+        </View>
+
+        <FlatList
+          data={DATA}
+          renderItem={({item}) => {
+            return (
+              <Surface>
+                <Text>{item.title}</Text>
+              </Surface>
+            );
+          }}
+          keyExtractor={item => item.id}
+        />
+      </View>
+    </>
   );
 };
 
@@ -43,6 +51,10 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginVertical: 10,
+  },
+  margin: {
+    marginHorizontal: 10,
   },
 });
 
