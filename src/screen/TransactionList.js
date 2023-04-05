@@ -1,28 +1,34 @@
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import {View, FlatList, StyleSheet} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import AppBar from '../components/AppBar';
-import {Surface} from 'react-native-paper';
 import {Chips} from '../components/Chips';
-import {Calendar} from 'react-native-calendars';
+import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
+import useTransactionList from '../hooks/useTransactionList';
+import moment from 'moment';
+import TransactionRenderItem from '../components/TransactionRenderItem';
+import {Divider} from 'react-native-paper';
 
 const TransactionList = ({navigation}) => {
-  const [selected, setSelected] = useState('');
+  const [transactionList] = useTransactionList();
+  const [selected, setSelected] = useState(false);
+
+  const transactionDivider = useCallback(() => <Divider />, []);
+
+  const date = moment().format('yyyy-MM-d');
+
   return (
     <>
       <AppBar navigation={navigation} title="Transaction List" />
-      <Calendar
-        onDayPress={day => {
-          setSelected(day.dateString);
-        }}
-        markedDates={{
-          [selected]: {
-            selected: true,
-            disableTouchEvent: true,
-            selectedDotColor: 'orange',
-          },
-        }}
-      />
-      <View style={styles.margin}>
+
+      <CalendarProvider date={date}>
+        <ExpandableCalendar
+          initialPosition={'closed'}
+          onCalendarToggled={e => setSelected(e)}
+        />
+      </CalendarProvider>
+
+      <View
+        style={selected ? styles.toggleMarginTrue : styles.toggleMarginFalse}>
         <View style={styles.flex}>
           <Chips icon="information" name="Incoming" />
           <Chips icon="information" name="Outgoing" />
@@ -30,15 +36,12 @@ const TransactionList = ({navigation}) => {
         </View>
 
         <FlatList
-          data={DATA}
-          renderItem={({item}) => {
-            return (
-              <Surface>
-                <Text>{item.title}</Text>
-              </Surface>
-            );
-          }}
+          contentContainerStyle={styles.flexGrow}
+          showsVerticalScrollIndicator={false}
+          data={transactionList}
+          renderItem={({item}) => <TransactionRenderItem item={item} />}
           keyExtractor={item => item.id}
+          ItemSeparatorComponent={transactionDivider}
         />
       </View>
     </>
@@ -51,24 +54,17 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 10,
+    marginBottom: 10,
   },
-  margin: {
+  toggleMarginTrue: {
     marginHorizontal: 10,
+    flex: 0.7,
+  },
+  toggleMarginFalse: {
+    marginHorizontal: 10,
+    flex: 3.1,
+  },
+  flexGrow: {
+    flexGrow: 1,
   },
 });
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
