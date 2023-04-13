@@ -26,7 +26,7 @@ const MainNavigation = () => {
       initialRouteName="Splash"
       screenOptions={{headerShown: false}}>
       {splashLoading && <Stack.Screen name="Splash" component={Splash} />}
-      <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="DailyReport" component={DailyReport} />
       <Stack.Screen name="TransactionForm" component={TransactionForm} />
