@@ -1,5 +1,5 @@
 import {View, FlatList, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import AppBar from '../components/AppBar';
 import {Chips} from '../components/Chips';
 import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
@@ -11,13 +11,6 @@ import {Divider} from 'react-native-paper';
 const TransactionList = ({navigation}) => {
   const [transactionList, isLoading] = useTransactionList();
   const [selected, setSelected] = useState(false);
-
-  let headers = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
 
   const transactionDivider = useCallback(() => <Divider />, []);
 
@@ -45,7 +38,7 @@ const TransactionList = ({navigation}) => {
         <FlatList
           contentContainerStyle={styles.flexGrow}
           showsVerticalScrollIndicator={false}
-          // data={transactionList}
+          data={transactionList}
           renderItem={({item}) => <TransactionRenderItem item={item} />}
           keyExtractor={item => item.id}
           ItemSeparatorComponent={transactionDivider}
