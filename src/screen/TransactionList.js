@@ -1,5 +1,5 @@
 import {View, FlatList, StyleSheet} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import AppBar from '../components/AppBar';
 import {Chips} from '../components/Chips';
 import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
@@ -9,8 +9,10 @@ import TransactionRenderItem from '../components/TransactionRenderItem';
 import {Divider} from 'react-native-paper';
 
 const TransactionList = ({navigation}) => {
-  const [transactionList, isLoading] = useTransactionList();
+  const [chips, setChips] = useState('borrower');
   const [selected, setSelected] = useState(false);
+
+  const [transactionList] = useTransactionList(chips);
 
   const transactionDivider = useCallback(() => <Divider />, []);
 
@@ -30,9 +32,21 @@ const TransactionList = ({navigation}) => {
       <View
         style={selected ? styles.toggleMarginTrue : styles.toggleMarginFalse}>
         <View style={styles.flex}>
-          <Chips icon="information" name="Incoming" />
-          <Chips icon="information" name="Outgoing" />
-          <Chips icon="information" name="Borrower" />
+          <Chips
+            icon="information"
+            name="Incoming"
+            onClick={() => setChips('incoming')}
+          />
+          <Chips
+            icon="information"
+            name="Outgoing"
+            onClick={() => setChips('out_going')}
+          />
+          <Chips
+            icon="information"
+            name="Borrower"
+            onClick={() => setChips('borrower')}
+          />
         </View>
 
         <FlatList

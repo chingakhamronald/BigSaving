@@ -7,14 +7,14 @@ const config = {
   },
 };
 
-export default function useTransactionList() {
-  const {data, isLoading} = useQuery(
-    ['transaction'],
+export default function useTransactionList(chips) {
+  const {data} = useQuery(
+    ['transaction', chips],
     async () =>
       await axios
-        .get('http://192.168.1.8:8000/api/transactions', config)
+        .get(`http://192.168.1.8:8000/api/transactions?search=${chips}`, config)
         .then(res => res?.data),
   );
 
-  return [data?.data, isLoading];
+  return [data?.data];
 }
