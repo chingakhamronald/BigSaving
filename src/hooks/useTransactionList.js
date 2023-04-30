@@ -8,7 +8,7 @@ const config = {
 };
 
 export default function useTransactionList(chips) {
-  const {data} = useQuery(
+  const {data, isLoading, isError, error, refetch} = useQuery(
     ['transaction', chips],
     async () =>
       await axios
@@ -16,5 +16,5 @@ export default function useTransactionList(chips) {
         .then(res => res?.data),
   );
 
-  return [data?.data];
+  return [data?.data, isLoading, isError, error, refetch];
 }

@@ -1,22 +1,64 @@
-import {View, FlatList, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  ToastAndroid,
+  RefreshControl,
+} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import AppBar from '../components/AppBar';
 import {Chips} from '../components/Chips';
 import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
 import useTransactionList from '../hooks/useTransactionList';
 import moment from 'moment';
 import TransactionRenderItem from '../components/TransactionRenderItem';
-import {Divider} from 'react-native-paper';
+import {ActivityIndicator, Divider, Text} from 'react-native-paper';
 
 const TransactionList = ({navigation}) => {
   const [chips, setChips] = useState('borrower');
   const [selected, setSelected] = useState(false);
 
-  const [transactionList] = useTransactionList(chips);
+  const [
+    transactionList,
+    isTransactionLoading,
+    isTransactionError,
+    isTransactionErrorMessage,
+    refetch,
+  ] = useTransactionList(chips);
 
   const transactionDivider = useCallback(() => <Divider />, []);
 
+  const transactionEmptyList = useCallback(
+    () => (
+      <View style={styles.empty}>
+        <Text> No data Found!</Text>
+      </View>
+    ),
+    [],
+  );
+
+  const isRefetch = useCallback(() => {
+    refetch();
+  }, [refetch]);
+
+  const renderItem = useCallback(({item}) => {
+    return <TransactionRenderItem item={item} />;
+  }, []);
+
   const date = moment().format('yyyy-MM-d');
+
+  if (isTransactionError) {
+    return ToastAndroid.show(
+      isTransactionErrorMessage?.message,
+      ToastAndroid.SHORT,
+    );
+  }
+
+  if (isTransactionLoading) {
+    return (
+      <ActivityIndicator color="red" size={'large'} style={styles.flexGrow} />
+    );
+  }
 
   return (
     <>
@@ -31,31 +73,22 @@ const TransactionList = ({navigation}) => {
 
       <View
         style={selected ? styles.toggleMarginTrue : styles.toggleMarginFalse}>
-        <View style={styles.flex}>
-          <Chips
-            icon="information"
-            name="Incoming"
-            onClick={() => setChips('incoming')}
-          />
-          <Chips
-            icon="information"
-            name="Outgoing"
-            onClick={() => setChips('out_going')}
-          />
-          <Chips
-            icon="information"
-            name="Borrower"
-            onClick={() => setChips('borrower')}
-          />
-        </View>
+        <Chips onClick={e => setChips(e)} />
 
         <FlatList
+          refreshControl={
+            <RefreshControl
+              onRefresh={isRefetch}
+              refreshing={isTransactionLoading}
+            />
+          }
           contentContainerStyle={styles.flexGrow}
           showsVerticalScrollIndicator={false}
           data={transactionList}
-          renderItem={({item}) => <TransactionRenderItem item={item} />}
+          renderItem={renderItem}
           keyExtractor={item => item.id}
           ItemSeparatorComponent={transactionDivider}
+          ListEmptyComponent={transactionEmptyList}
         />
       </View>
     </>
@@ -65,11 +98,6 @@ const TransactionList = ({navigation}) => {
 export default TransactionList;
 
 const styles = StyleSheet.create({
-  flex: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-  },
   toggleMarginTrue: {
     marginHorizontal: 10,
     flex: 0.7,
@@ -80,5 +108,10 @@ const styles = StyleSheet.create({
   },
   flexGrow: {
     flexGrow: 1,
+  },
+  empty: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
