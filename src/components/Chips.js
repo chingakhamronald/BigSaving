@@ -33,7 +33,7 @@ export const Chips = ({icon, name, onClick}) => {
     <View style={style.flex}>
       {filterOptions.map((e, idx) => {
         return (
-          <Chip idx={idx} icon={e.icon} onPress={() => onClick(e.value)}>
+          <Chip key={idx} icon={e.icon} onPress={() => onClick(e.value)}>
             {e.name}
           </Chip>
         );

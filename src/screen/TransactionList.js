@@ -12,7 +12,7 @@ import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
 import useTransactionList from '../hooks/useTransactionList';
 import moment from 'moment';
 import TransactionRenderItem from '../components/TransactionRenderItem';
-import {ActivityIndicator, Divider, Text} from 'react-native-paper';
+import {Divider, Text} from 'react-native-paper';
 
 const TransactionList = ({navigation}) => {
   const [chips, setChips] = useState('borrower');
@@ -51,12 +51,6 @@ const TransactionList = ({navigation}) => {
     return ToastAndroid.show(
       isTransactionErrorMessage?.message,
       ToastAndroid.SHORT,
-    );
-  }
-
-  if (isTransactionLoading) {
-    return (
-      <ActivityIndicator color="red" size={'large'} style={styles.flexGrow} />
     );
   }
 
@@ -99,11 +93,9 @@ export default TransactionList;
 
 const styles = StyleSheet.create({
   toggleMarginTrue: {
-    marginHorizontal: 10,
     flex: 0.7,
   },
   toggleMarginFalse: {
-    marginHorizontal: 10,
     flex: 3.1,
   },
   flexGrow: {
