@@ -1,7 +1,7 @@
 import React from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
-import {Button, Surface, Text} from 'react-native-paper';
+import {Surface, Text} from 'react-native-paper';
 import {useTransactionDelete} from '../hooks/mutation/useTransactionDelete';
 
 const TransactionRenderItem = ({item}) => {
@@ -19,14 +19,20 @@ const TransactionRenderItem = ({item}) => {
     });
     return (
       <Animated.View style={[styles.leftAction, {transform: [{scale}]}]}>
-        <Button onPress={() => handleDelete(item.id)}>Delete</Button>
+        <Text>Delete</Text>
       </Animated.View>
     );
   };
 
   return (
     <GestureHandlerRootView>
-      <Swipeable renderLeftActions={leftActions}>
+      <Swipeable
+        renderLeftActions={leftActions}
+        onSwipeableWillOpen={e => {
+          if (e) {
+            return handleDelete(item.id);
+          }
+        }}>
         <Surface elevation={5} style={styles.wrapper}>
           <View style={styles.flex3}>
             <Text>{item.name}</Text>
