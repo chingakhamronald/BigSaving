@@ -9,13 +9,14 @@ import React, {useCallback, useState} from 'react';
 import AppBar from '../components/AppBar';
 import {Chips} from '../components/Chips';
 import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
-import useTransactionList from '../hooks/useTransactionList';
 import moment from 'moment';
 import TransactionRenderItem from '../components/TransactionRenderItem';
 import {Divider, Text} from 'react-native-paper';
+import useTransactionList from '../hooks/query/useTransactionList';
+import {useTransactionDelete} from '../hooks/mutation/useTransactionDelete';
 
 const TransactionList = ({navigation}) => {
-  const [chips, setChips] = useState('borrower');
+  const [chips, setChips] = useState('in_coming');
   const [selected, setSelected] = useState(false);
 
   const [
@@ -31,7 +32,7 @@ const TransactionList = ({navigation}) => {
   const transactionEmptyList = useCallback(
     () => (
       <View style={styles.empty}>
-        <Text> No data Found!</Text>
+        <Text>No data Found!</Text>
       </View>
     ),
     [],

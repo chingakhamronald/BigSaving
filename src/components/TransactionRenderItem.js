@@ -1,9 +1,16 @@
 import React from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
-import {Surface, Text} from 'react-native-paper';
+import {Button, Surface, Text} from 'react-native-paper';
+import {useTransactionDelete} from '../hooks/mutation/useTransactionDelete';
 
 const TransactionRenderItem = ({item}) => {
+  const [mutate, isLoading] = useTransactionDelete();
+
+  const handleDelete = id => {
+    return mutate(id);
+  };
+
   const leftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
@@ -12,7 +19,7 @@ const TransactionRenderItem = ({item}) => {
     });
     return (
       <Animated.View style={[styles.leftAction, {transform: [{scale}]}]}>
-        <Text>Delete</Text>
+        <Button onPress={() => handleDelete(item.id)}>Delete</Button>
       </Animated.View>
     );
   };
@@ -46,5 +53,6 @@ const styles = StyleSheet.create({
   leftAction: {
     flex: 1,
     backgroundColor: 'red',
+    justifyContent: 'center',
   },
 });

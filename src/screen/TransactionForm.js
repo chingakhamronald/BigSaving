@@ -5,10 +5,10 @@ import {Chips} from '../components/Chips';
 import {BorrowForm, IncommingForm, OutGoingForm} from '../components/Forms';
 
 const TransactionForm = ({navigation}) => {
-  const [chipState, setChipState] = useState('out_going');
+  const [chips, setChips] = useState('in_coming');
 
   const renderForms = useCallback(() => {
-    switch (chipState) {
+    switch (chips) {
       case 'borrow':
         return <BorrowForm />;
       case 'in_coming':
@@ -16,29 +16,14 @@ const TransactionForm = ({navigation}) => {
       default:
         return <OutGoingForm />;
     }
-  }, [chipState]);
+  }, [chips]);
 
   return (
     <>
       <AppBar navigation={navigation} title="Transaction Form" />
       <View style={styles.wrapper}>
-        <View style={styles.flex}>
-          <Chips
-            icon="information"
-            name="Outgoing"
-            onClick={() => setChipState('out_going')}
-          />
-          <Chips
-            icon="information"
-            name="Incoming"
-            onClick={() => setChipState('in_coming')}
-          />
-          <Chips
-            icon="information"
-            name="Borrow"
-            onClick={() => setChipState('borrow')}
-          />
-        </View>
+        <Chips onClick={e => setChips(e)} />
+
         <View>{renderForms()}</View>
       </View>
     </>

@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Chip} from 'react-native-paper';
 
-export const Chips = ({icon, name, onClick}) => {
+export const Chips = ({onClick}) => {
   const style = StyleSheet.create({
     flex: {
       flexDirection: 'row',
@@ -14,7 +14,7 @@ export const Chips = ({icon, name, onClick}) => {
   const filterOptions = [
     {
       name: 'Incoming',
-      value: 'incoming',
+      value: 'in_coming',
       icon: 'information',
     },
     {
@@ -24,7 +24,7 @@ export const Chips = ({icon, name, onClick}) => {
     },
     {
       name: 'Borrow',
-      value: 'borrower',
+      value: 'borrow',
       icon: 'information',
     },
   ];

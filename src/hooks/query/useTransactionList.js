@@ -12,7 +12,7 @@ export default function useTransactionList(chips) {
     ['transaction', chips],
     async () =>
       await axios
-        .get(`http://192.168.1.8:8000/api/transactions?search=${chips}`, config)
+        .get(`http://192.168.1.9:8000/api/transactions?search=${chips}`, config)
         .then(res => res?.data),
   );
 
