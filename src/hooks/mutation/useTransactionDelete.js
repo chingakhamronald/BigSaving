@@ -1,21 +1,12 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import axios from 'axios';
-
-const config = {
-  header: {
-    'Content-Type': 'application/json',
-  },
-};
+import {API} from '../../constant/API';
 
 export const useTransactionDelete = () => {
   const queryClient = useQueryClient();
 
   const {mutate, isLoading} = useMutation({
     mutationFn: async id => {
-      const res = await axios.delete(
-        `http://192.168.1.9:8000/api/transactions/${id}`,
-        config,
-      );
+      const res = await API.delete(`/transactions/${id}`);
       return res;
     },
     onSuccess: () => {

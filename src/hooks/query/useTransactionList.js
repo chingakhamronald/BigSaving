@@ -1,19 +1,11 @@
 import {useQuery} from '@tanstack/react-query';
-import axios from 'axios';
-
-const config = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
+import {API} from '../../constant/API';
 
 export default function useTransactionList(chips) {
   const {data, isLoading, isError, error, refetch} = useQuery(
     ['transaction', chips],
     async () =>
-      await axios
-        .get(`http://192.168.1.9:8000/api/transactions?search=${chips}`, config)
-        .then(res => res?.data),
+      await API.get(`/transactions?search=${chips}`).then(res => res?.data),
   );
 
   return [data?.data, isLoading, isError, error, refetch];
